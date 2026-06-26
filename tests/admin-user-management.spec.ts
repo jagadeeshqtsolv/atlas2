@@ -9,6 +9,10 @@ test('Admin loads /admin: default User Management tab, tabs order, header elemen
     await loginPage.clickLoginWithSalesforce();
   });
 
+  await test.step('Open — Navigate to /admin', async () => {
+    await page.goto('/admin');
+  });
+
   await test.step('Assert visible — Tabs container', async () => {
     await userManagementPage.expectAdminTabUsersVisible();
   });
@@ -71,6 +75,10 @@ test('Switch tabs: User Management to Roles & Access and back', { tag: ["@smoke"
     await loginPage.clickLoginWithSalesforce();
   });
 
+  await test.step('Open — Navigate to /admin', async () => {
+    await page.goto('/admin');
+  });
+
   await test.step('Assert visible — User Management tab active', async () => {
     await userManagementPage.expectAdminTabUsersVisible();
   });
@@ -99,6 +107,10 @@ test('Search filters users case-insensitively and in real time', { tag: ["@smoke
 
   await test.step('Click — Salesforce Login button', async () => {
     await loginPage.clickLoginWithSalesforce();
+  });
+
+  await test.step('Open — Navigate to /admin', async () => {
+    await page.goto('/admin');
   });
 
   await test.step('Assert visible — Search user input', async () => {
