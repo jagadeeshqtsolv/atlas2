@@ -1,0 +1,71 @@
+{
+  "id": "um-search-no-results",
+  "testPlanId": "cba58e8d-8000-4238-a0ba-83aaa4821844",
+  "requirementId": "6229f24a-b1f7-4e69-bd00-47e4e1fe6fb2",
+  "suiteName": "Admin — User Management — Smoke",
+  "case": {
+    "id": "um-search-no-results",
+    "title": "Search with no results shows empty state and keeps header visible",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to Admin page",
+        "value": "https://ukg-atlas.vercel.app/admin"
+      },
+      {
+        "id": "s2",
+        "action": "waitForVisible",
+        "targetDescription": "Salesforce login button",
+        "locatorHint": "text=Salesforce login"
+      },
+      {
+        "id": "s3",
+        "action": "tap",
+        "targetDescription": "Click Salesforce login",
+        "locatorHint": "text=Salesforce login"
+      },
+      {
+        "id": "s4",
+        "action": "waitForVisible",
+        "targetDescription": "User table visible",
+        "locatorHint": "[data-testid=user-table]"
+      },
+      {
+        "id": "s5",
+        "action": "fill",
+        "targetDescription": "Type non-matching query",
+        "locatorHint": "[data-testid=search-user]",
+        "value": "zzznomatch"
+      },
+      {
+        "id": "s6",
+        "action": "waitForVisible",
+        "targetDescription": "No results message",
+        "locatorHint": "[data-testid=no-results]"
+      },
+      {
+        "id": "s7",
+        "action": "assertText",
+        "targetDescription": "No results message text",
+        "locatorHint": "[data-testid=no-results]",
+        "assertion": "No users found for 'zzznomatch'."
+      },
+      {
+        "id": "s8",
+        "action": "assertVisible",
+        "targetDescription": "Table header row remains visible",
+        "locatorHint": "thead"
+      }
+    ],
+    "tags": [
+      "@smoke",
+      "@regression"
+    ]
+  }
+}

@@ -1,0 +1,1135 @@
+{
+  "id": "cba58e8d-8000-4238-a0ba-83aaa4821844",
+  "requirementId": "6229f24a-b1f7-4e69-bd00-47e4e1fe6fb2",
+  "model": "gpt-5",
+  "createdAt": "2026-06-26T17:35:10.315Z",
+  "plan": {
+    "version": 1,
+    "suiteName": "Admin — User Management — Smoke",
+    "cases": [
+      {
+        "id": "um-admin-default-ui",
+        "title": "Admin loads /admin: default User Management tab, tabs order, header elements, and table columns render",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Navigate to Admin page",
+            "value": "https://ukg-atlas.vercel.app/admin"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User Management tab active",
+            "locatorHint": "[data-testid=tab-user-management][aria-selected='true']"
+          },
+          {
+            "id": "s5",
+            "action": "assertText",
+            "targetDescription": "Tab 1 label",
+            "locatorHint": "[data-testid=admin-tabs] [role=tab]:nth-child(1)",
+            "assertion": "User Management"
+          },
+          {
+            "id": "s6",
+            "action": "assertText",
+            "targetDescription": "Tab 2 label",
+            "locatorHint": "[data-testid=admin-tabs] [role=tab]:nth-child(2)",
+            "assertion": "Roles & Access"
+          },
+          {
+            "id": "s7",
+            "action": "assertText",
+            "targetDescription": "Tab 3 label",
+            "locatorHint": "[data-testid=admin-tabs] [role=tab]:nth-child(3)",
+            "assertion": "Audit Log"
+          },
+          {
+            "id": "s8",
+            "action": "assertVisible",
+            "targetDescription": "\"N Users\" count label",
+            "locatorHint": "[data-testid=users-count]"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "Search user input",
+            "locatorHint": "[data-testid=search-user]"
+          },
+          {
+            "id": "s10",
+            "action": "assertVisible",
+            "targetDescription": "Invite user button",
+            "locatorHint": "[data-testid=invite-user]"
+          },
+          {
+            "id": "s11",
+            "action": "assertCount",
+            "targetDescription": "Table header has exactly 5 columns",
+            "locatorHint": "thead th"
+          },
+          {
+            "id": "s12",
+            "action": "assertText",
+            "targetDescription": "Column 1 label",
+            "locatorHint": "thead th:nth-child(1)",
+            "assertion": "User information"
+          },
+          {
+            "id": "s13",
+            "action": "assertText",
+            "targetDescription": "Column 2 label",
+            "locatorHint": "thead th:nth-child(2)",
+            "assertion": "Role"
+          },
+          {
+            "id": "s14",
+            "action": "assertText",
+            "targetDescription": "Column 3 label",
+            "locatorHint": "thead th:nth-child(3)",
+            "assertion": "Status"
+          },
+          {
+            "id": "s15",
+            "action": "assertText",
+            "targetDescription": "Column 4 label",
+            "locatorHint": "thead th:nth-child(4)",
+            "assertion": "Last active"
+          },
+          {
+            "id": "s16",
+            "action": "assertText",
+            "targetDescription": "Column 5 label",
+            "locatorHint": "thead th:nth-child(5)",
+            "assertion": "Account Access"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-switch-tabs",
+        "title": "Switch tabs: User Management to Roles & Access and back",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Navigate to Admin page",
+            "value": "https://ukg-atlas.vercel.app/admin"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User Management tab active",
+            "locatorHint": "[data-testid=tab-user-management][aria-selected='true']"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Click Roles & Access tab",
+            "locatorHint": "[data-testid=tab-roles-access]"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Roles & Access view visible",
+            "locatorHint": "[data-testid=roles-access-view]"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Click User Management tab",
+            "locatorHint": "[data-testid=tab-user-management]"
+          },
+          {
+            "id": "s8",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible again",
+            "locatorHint": "[data-testid=user-table]"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-search-case-insensitive",
+        "title": "Search filters users case-insensitively and in real time",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with a known 'John Doe' user",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=has-john"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "fill",
+            "targetDescription": "Type mixed-case query into Search user",
+            "locatorHint": "[data-testid=search-user]",
+            "value": "JoHn"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Row containing John Doe visible",
+            "locatorHint": "tbody [data-testid=user-row][data-name*='John Doe']"
+          },
+          {
+            "id": "s7",
+            "action": "assertVisible",
+            "targetDescription": "\"N Users\" count label remains visible",
+            "locatorHint": "[data-testid=users-count]"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-search-no-results",
+        "title": "Search with no results shows empty state and keeps header visible",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Navigate to Admin page",
+            "value": "https://ukg-atlas.vercel.app/admin"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "fill",
+            "targetDescription": "Type non-matching query",
+            "locatorHint": "[data-testid=search-user]",
+            "value": "zzznomatch"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "No results message",
+            "locatorHint": "[data-testid=no-results]"
+          },
+          {
+            "id": "s7",
+            "action": "assertText",
+            "targetDescription": "No results message text",
+            "locatorHint": "[data-testid=no-results]",
+            "assertion": "No users found for 'zzznomatch'."
+          },
+          {
+            "id": "s8",
+            "action": "assertVisible",
+            "targetDescription": "Table header row remains visible",
+            "locatorHint": "thead"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-revoke-access-confirm",
+        "title": "Revoke access: confirmation dialog and toggle turns OFF (Alice Doe)",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with active user Alice Doe",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=alice-active"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "fill",
+            "targetDescription": "Search Alice Doe",
+            "locatorHint": "[data-testid=search-user]",
+            "value": "Alice Doe"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Alice Doe row",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Alice Doe']"
+          },
+          {
+            "id": "s7",
+            "action": "assertContainsText",
+            "targetDescription": "Status is Active",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Alice Doe'] [data-testid=status-badge]",
+            "assertion": "Active"
+          },
+          {
+            "id": "s8",
+            "action": "assertChecked",
+            "targetDescription": "Access toggle is ON",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Alice Doe'] [data-testid=access-toggle]"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Click access toggle",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Alice Doe'] [data-testid=access-toggle]"
+          },
+          {
+            "id": "s10",
+            "action": "waitForVisible",
+            "targetDescription": "Confirmation dialog",
+            "locatorHint": "[role=dialog]"
+          },
+          {
+            "id": "s11",
+            "action": "assertText",
+            "targetDescription": "Dialog title",
+            "locatorHint": "[role=dialog] [data-testid=confirm-title]",
+            "assertion": "Revoke access?"
+          },
+          {
+            "id": "s12",
+            "action": "assertContainsText",
+            "targetDescription": "Dialog message includes Alice Doe",
+            "locatorHint": "[role=dialog] [data-testid=confirm-message]",
+            "assertion": "This will prevent Alice Doe from accessing the portal."
+          },
+          {
+            "id": "s13",
+            "action": "tap",
+            "targetDescription": "Click Revoke (destructive)",
+            "locatorHint": "[role=dialog] button:has-text('Revoke')"
+          },
+          {
+            "id": "s14",
+            "action": "waitForHidden",
+            "targetDescription": "Dialog closes",
+            "locatorHint": "[role=dialog]"
+          },
+          {
+            "id": "s15",
+            "action": "assertUnchecked",
+            "targetDescription": "Access toggle now OFF",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Alice Doe'] [data-testid=access-toggle]"
+          },
+          {
+            "id": "s16",
+            "action": "assertContainsText",
+            "targetDescription": "Status updated to Inactive (if applicable)",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Alice Doe'] [data-testid=status-badge]",
+            "assertion": "Inactive"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-revoke-access-cancel",
+        "title": "Cancel revocation: toggle remains ON (Bob Smith)",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with active user Bob Smith",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=bob-active"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "fill",
+            "targetDescription": "Search Bob Smith",
+            "locatorHint": "[data-testid=search-user]",
+            "value": "Bob Smith"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Bob Smith row",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Bob Smith']"
+          },
+          {
+            "id": "s7",
+            "action": "assertChecked",
+            "targetDescription": "Access toggle is ON",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Bob Smith'] [data-testid=access-toggle]"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Click access toggle",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Bob Smith'] [data-testid=access-toggle]"
+          },
+          {
+            "id": "s9",
+            "action": "waitForVisible",
+            "targetDescription": "Confirmation dialog",
+            "locatorHint": "[role=dialog]"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Click Cancel",
+            "locatorHint": "[role=dialog] button:has-text('Cancel')"
+          },
+          {
+            "id": "s11",
+            "action": "waitForHidden",
+            "targetDescription": "Dialog closes",
+            "locatorHint": "[role=dialog]"
+          },
+          {
+            "id": "s12",
+            "action": "assertChecked",
+            "targetDescription": "Access toggle remains ON",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Bob Smith'] [data-testid=access-toggle]"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-reenable-access",
+        "title": "Re-enable access from OFF: immediate without confirmation (Carol Jones)",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with user Carol Jones having OFF access",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=carol-off"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "fill",
+            "targetDescription": "Search Carol Jones",
+            "locatorHint": "[data-testid=search-user]",
+            "value": "Carol Jones"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Carol Jones row",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Carol Jones']"
+          },
+          {
+            "id": "s7",
+            "action": "assertUnchecked",
+            "targetDescription": "Access toggle is OFF",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Carol Jones'] [data-testid=access-toggle]"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Click access toggle to enable",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Carol Jones'] [data-testid=access-toggle]"
+          },
+          {
+            "id": "s9",
+            "action": "wait",
+            "targetDescription": "Short wait to ensure no dialog appears"
+          },
+          {
+            "id": "s10",
+            "action": "assertChecked",
+            "targetDescription": "Access toggle now ON",
+            "locatorHint": "tbody [data-testid=user-row][data-name='Carol Jones'] [data-testid=access-toggle]"
+          },
+          {
+            "id": "s11",
+            "action": "assertHidden",
+            "targetDescription": "No confirmation dialog shown",
+            "locatorHint": "[role=dialog]"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-own-row-protected",
+        "title": "Admin's own row: toggle disabled and tooltip on hover",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Navigate to Admin page",
+            "value": "https://ukg-atlas.vercel.app/admin"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "Own admin row visible",
+            "locatorHint": "tbody [data-testid=own-user-row]"
+          },
+          {
+            "id": "s5",
+            "action": "assertDisabled",
+            "targetDescription": "Own toggle disabled",
+            "locatorHint": "tbody [data-testid=own-user-row] [data-testid=access-toggle]"
+          },
+          {
+            "id": "s6",
+            "action": "hover",
+            "targetDescription": "Hover own toggle",
+            "locatorHint": "tbody [data-testid=own-user-row] [data-testid=access-toggle]"
+          },
+          {
+            "id": "s7",
+            "action": "waitForVisible",
+            "targetDescription": "Tooltip visible",
+            "locatorHint": "[role=tooltip]"
+          },
+          {
+            "id": "s8",
+            "action": "assertText",
+            "targetDescription": "Tooltip text",
+            "locatorHint": "[role=tooltip]",
+            "assertion": "You cannot revoke your own access."
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-pagination-over25",
+        "title": "Pagination with >25 users: shows controls and navigates to next page",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with 50 users",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=users-50"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "assertCount",
+            "targetDescription": "25 rows on page 1",
+            "locatorHint": "tbody [data-testid=user-row]"
+          },
+          {
+            "id": "s6",
+            "action": "assertVisible",
+            "targetDescription": "Pagination controls visible",
+            "locatorHint": "[data-testid=pagination]"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Click Next",
+            "locatorHint": "[data-testid=pagination] button:has-text('Next')"
+          },
+          {
+            "id": "s8",
+            "action": "waitForVisible",
+            "targetDescription": "Page 2 active indicator",
+            "locatorHint": "[data-testid=pagination] button[aria-current='page']:has-text('2')"
+          },
+          {
+            "id": "s9",
+            "action": "assertEnabled",
+            "targetDescription": "Previous button enabled",
+            "locatorHint": "[data-testid=pagination] button:has-text('Previous')"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-pagination-resets-on-search",
+        "title": "Pagination resets to page 1 when search query changes on page 2",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with 50 users",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=users-50"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Go to page 2 via Next",
+            "locatorHint": "[data-testid=pagination] button:has-text('Next')"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Page 2 active indicator",
+            "locatorHint": "[data-testid=pagination] button[aria-current='page']:has-text('2')"
+          },
+          {
+            "id": "s7",
+            "action": "fill",
+            "targetDescription": "Type one character into Search user",
+            "locatorHint": "[data-testid=search-user]",
+            "value": "a"
+          },
+          {
+            "id": "s8",
+            "action": "waitForVisible",
+            "targetDescription": "Page 1 active indicator after search",
+            "locatorHint": "[data-testid=pagination] button[aria-current='page']:has-text('1')"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-pagination-exact25-no-controls",
+        "title": "Exactly 25 users: no pagination controls are shown",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with exactly 25 users",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=users-25"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "assertCount",
+            "targetDescription": "Table shows 25 rows",
+            "locatorHint": "tbody [data-testid=user-row]"
+          },
+          {
+            "id": "s6",
+            "action": "assertHidden",
+            "targetDescription": "Pagination controls not shown",
+            "locatorHint": "[data-testid=pagination]"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-pagination-exact26-has-controls",
+        "title": "Exactly 26 users: pagination controls appear and page 1 shows 25 rows",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with exactly 26 users",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=users-26"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "assertCount",
+            "targetDescription": "Page 1 shows 25 rows",
+            "locatorHint": "tbody [data-testid=user-row]"
+          },
+          {
+            "id": "s6",
+            "action": "assertVisible",
+            "targetDescription": "Pagination controls appear",
+            "locatorHint": "[data-testid=pagination]"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-last-active-never",
+        "title": "Last active column shows 'Never' for users who never logged in",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with at least one never-logged-in user",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=has-never-login"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "assertContainsText",
+            "targetDescription": "At least one 'Last active' cell shows 'Never'",
+            "locatorHint": "tbody [data-testid=last-active]",
+            "assertion": "Never"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-userinfo-email-only",
+        "title": "User information cell: email-only account shows email as primary and avatar initials fallback",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with an email-only user",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=email-only-user"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "fill",
+            "targetDescription": "Search email-only user",
+            "locatorHint": "[data-testid=search-user]",
+            "value": "no-name@example.com"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Email-only user row",
+            "locatorHint": "tbody [data-testid=user-row][data-email='no-name@example.com']"
+          },
+          {
+            "id": "s7",
+            "action": "assertVisible",
+            "targetDescription": "Avatar initials (no photo)",
+            "locatorHint": "tbody [data-testid=user-row][data-email='no-name@example.com'] [data-testid=avatar-initials]"
+          },
+          {
+            "id": "s8",
+            "action": "assertHidden",
+            "targetDescription": "Full name element not shown",
+            "locatorHint": "tbody [data-testid=user-row][data-email='no-name@example.com'] [data-testid=user-full-name]"
+          },
+          {
+            "id": "s9",
+            "action": "assertText",
+            "targetDescription": "Primary line shows email",
+            "locatorHint": "tbody [data-testid=user-row][data-email='no-name@example.com'] [data-testid=user-email]",
+            "assertion": "no-name@example.com"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-status-badges-and-inactive-toggle",
+        "title": "Status badges show Active/Inactive and inactive user's toggle is OFF",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with mixed statuses",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=mix-statuses"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User table visible",
+            "locatorHint": "[data-testid=user-table]"
+          },
+          {
+            "id": "s5",
+            "action": "assertCountGreaterThan",
+            "targetDescription": "At least one Active badge present",
+            "locatorHint": "tbody [data-testid=status-badge][data-status='Active']"
+          },
+          {
+            "id": "s6",
+            "action": "assertCountGreaterThan",
+            "targetDescription": "At least one Inactive badge present",
+            "locatorHint": "tbody [data-testid=status-badge][data-status='Inactive']"
+          },
+          {
+            "id": "s7",
+            "action": "assertUnchecked",
+            "targetDescription": "First Inactive row toggle is OFF",
+            "locatorHint": "tbody [data-testid=user-row][data-status='Inactive'] [data-testid=access-toggle]"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      },
+      {
+        "id": "um-count-label-unchanged-on-filter",
+        "title": "\"N Users\" count label remains unchanged during filtering (50 Users fixture)",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Admin with 50 users",
+            "value": "https://ukg-atlas.vercel.app/admin?seed=users-50"
+          },
+          {
+            "id": "s2",
+            "action": "waitForVisible",
+            "targetDescription": "Salesforce login button",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s3",
+            "action": "tap",
+            "targetDescription": "Click Salesforce login",
+            "locatorHint": "text=Salesforce login"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "User Management header visible",
+            "locatorHint": "[data-testid=users-count]"
+          },
+          {
+            "id": "s5",
+            "action": "assertText",
+            "targetDescription": "Users count label initial",
+            "locatorHint": "[data-testid=users-count]",
+            "assertion": "50 Users"
+          },
+          {
+            "id": "s6",
+            "action": "fill",
+            "targetDescription": "Type filter query",
+            "locatorHint": "[data-testid=search-user]",
+            "value": "x"
+          },
+          {
+            "id": "s7",
+            "action": "assertText",
+            "targetDescription": "Users count label unchanged",
+            "locatorHint": "[data-testid=users-count]",
+            "assertion": "50 Users"
+          }
+        ],
+        "tags": [
+          "@smoke",
+          "@regression"
+        ]
+      }
+    ]
+  }
+}
