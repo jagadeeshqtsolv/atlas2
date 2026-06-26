@@ -1,4 +1,6 @@
 {
+  "name": "qa",
+  "slug": "qa",
   "baseURL": "https://qa-atlas.qtsolvdev.com/admin",
   "browser": "chromium",
   "headless": true,
