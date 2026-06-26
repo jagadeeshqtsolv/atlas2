@@ -3,7 +3,7 @@ import { test, expect } from '../support/fixtures';
 
 test('Revoke access from ON to OFF via Confirm updates toggle immediately and persists after reload', { tag: ["@e2e","@regression","@P0","@revoke-access-confirm-updates-and-persists"] }, async ({ page, loginPage, userManagementPage }) => {
   await test.step('Open — Open Admin User Management', async () => {
-    await page.goto('/admin');
+    await page.goto('/login?next=%2Fadmin');
   });
 
   await test.step('Click — SSO login', async () => {
