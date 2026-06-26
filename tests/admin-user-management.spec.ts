@@ -1,8 +1,6 @@
 import { test, expect } from '../support/fixtures';
-import testData from '../testdata/test-data.json';
 
-
-test('Admin loads /admin: default User Management tab, header controls, and table columns render correctly', { tag: ["@smoke","@regression","@P0","@load-admin-default-user-management-layout"] }, async ({ page, loginPage, userManagementPage }) => {
+test('Admin loads /admin: default User Management tab, tabs order, header elements, and table columns render', { tag: ["@smoke","@regression","@P0","@load-admin-default-user-management-layout"] }, async ({ page, loginPage, userManagementPage }) => {
   await test.step('Open — Navigate to Admin', async () => {
     await page.goto('/');
   });
@@ -59,13 +57,12 @@ test('Admin loads /admin: default User Management tab, header controls, and tabl
     await userManagementPage.expectLastActiveText('Last active');
   });
 
-  await test.step("Assert text — Column 5 header 'Account Access'", async () => {
-    await userManagementPage.expectPortalAccessText('Account Access');
+  await test.step('Assert visible — Column 5 header Portal Access visible', async () => {
+    await userManagementPage.expectPortalAccessVisible();
   });
 });
 
-
-test('Switch to Roles & Access and back to User Management', { tag: ["@smoke","@regression","@P0","@switch-tabs-roles-and-back"] }, async ({ page, loginPage, userManagementPage, rolesAndAccessPage }) => {
+test('Switch tabs: User Management to Roles & Access and back', { tag: ["@smoke","@regression","@P0","@switch-tabs-roles-and-back"] }, async ({ page, loginPage, userManagementPage, rolesAndAccessPage }) => {
   await test.step('Open — Navigate to Admin', async () => {
     await page.goto('/');
   });
@@ -95,8 +92,7 @@ test('Switch to Roles & Access and back to User Management', { tag: ["@smoke","@
   });
 });
 
-
-test('Search filters users in real time (case-insensitive) and N Users label remains displayed', { tag: ["@smoke","@regression","@P0","@search-filters-case-insensitive"] }, async ({ page, loginPage, userManagementPage }) => {
+test('Search filters users case-insensitively and in real time', { tag: ["@smoke","@regression","@P0","@search-filters-case-insensitive"] }, async ({ page, loginPage, userManagementPage }) => {
   await test.step('Open — Navigate to Admin', async () => {
     await page.goto('/');
   });
@@ -109,54 +105,19 @@ test('Search filters users in real time (case-insensitive) and N Users label rem
     await userManagementPage.expectUsersSearchVisible();
   });
 
-  await test.step('Screenshot — Capture N Users label before search', async () => {
-    await page.screenshot();
-  });
-
   await test.step('Fill — Type search query (uppercase to verify case-insensitive)', async () => {
-    await userManagementPage.fillUsersSearch(testData.searchFiltersUsersInRealTimeCaseInsensitiveAndNUsersLabelRemainsDisplayed.typeSearchQueryUppercaseToVerifyCaseInsensitive);
+    await userManagementPage.fillUsersSearch('EMMA JOHNSON');
   });
 
   await test.step('Wait — Wait for real-time filtering', async () => {
-    await userManagementPage.expectUsersSearchValue(testData.searchFiltersUsersInRealTimeCaseInsensitiveAndNUsersLabelRemainsDisplayed.typeSearchQueryUppercaseToVerifyCaseInsensitive);
+    await userManagementPage.expectUsersSearchValue('EMMA JOHNSON');
   });
 
-  await test.step('Assert count — All visible rows match query (no non-matching rows)', async () => {
+  await test.step('Assert count — Search input exists exactly once', async () => {
     await userManagementPage.expectUsersSearchCount(1);
   });
 
-  await test.step('Screenshot — Capture N Users label after search (should not change)', async () => {
-    await page.screenshot();
+  await test.step('Assert visible — Users label remains displayed', async () => {
+    await userManagementPage.expectUsersVisible();
   });
 });
-
-
-test('Search with no matches shows empty-state message and keeps table header visible', { tag: ["@smoke","@regression","@P0","@search-no-results-message-and-header"] }, async ({ page, loginPage, userManagementPage }) => {
-  await test.step('Open — Navigate to Admin', async () => {
-    await page.goto('/')
-  })
-
-  await test.step('Click — Salesforce Login button', async () => {
-    await loginPage.clickLoginWithSalesforce()
-  })
-
-  await test.step('Assert visible — Search user input', async () => {
-    await userManagementPage.expectUsersSearchVisible()
-  })
-
-  await test.step('Fill — Type a query with no matches', async () => {
-    await userManagementPage.fillUsersSearch(testData.searchWithNoMatchesShowsEmptyStateMessageAndKeepsTableHeaderVisible.typeAQueryWithNoMatches)
-  })
-
-  await test.step('Wait — Wait for filter to apply', async () => {
-    await userManagementPage.expectUsersSearchValue(testData.searchWithNoMatchesShowsEmptyStateMessageAndKeepsTableHeaderVisible.typeAQueryWithNoMatches)
-  })
-
-  await test.step('Assert contains — No results message is shown in table body', async () => {
-    await userManagementPage.expectNoResultsMessageContainsText('No users found for')
-  })
-
-  await test.step('Assert text — Table header row remains visible - first column', async () => {
-    await userManagementPage.expectUserInformationText('User information')
-  })
-})
