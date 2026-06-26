@@ -1,16 +1,12 @@
 import { test, expect } from '../support/fixtures';
 
 test('Admin loads /admin: default User Management tab, tabs order, header elements, and table columns render', { tag: ["@smoke","@regression","@P0","@load-admin-default-user-management-layout"] }, async ({ page, loginPage, userManagementPage }) => {
-  await test.step('Open — Navigate to Admin', async () => {
-    await page.goto('/');
+  await test.step('Open — Navigate to login with redirect to Admin', async () => {
+    await page.goto('/login?next=%2Fadmin');
   });
 
   await test.step('Click — Salesforce Login button', async () => {
     await loginPage.clickLoginWithSalesforce();
-  });
-
-  await test.step('Open — Navigate to Admin (QA)', async () => {
-    await page.goto('https://qa-atlas.qtsolvdev.com/admin');
   });
 
   await test.step('Assert visible — Tabs container', async () => {
@@ -67,16 +63,12 @@ test('Admin loads /admin: default User Management tab, tabs order, header elemen
 });
 
 test('Switch tabs: User Management to Roles & Access and back', { tag: ["@smoke","@regression","@P0","@switch-tabs-roles-and-back"] }, async ({ page, loginPage, userManagementPage, rolesAndAccessPage }) => {
-  await test.step('Open — Navigate to Admin', async () => {
-    await page.goto('/');
+  await test.step('Open — Navigate to login with redirect to Admin', async () => {
+    await page.goto('/login?next=%2Fadmin');
   });
 
   await test.step('Click — Salesforce Login button', async () => {
     await loginPage.clickLoginWithSalesforce();
-  });
-
-  await test.step('Open — Navigate to Admin (QA)', async () => {
-    await page.goto('https://qa-atlas.qtsolvdev.com/admin');
   });
 
   await test.step('Assert visible — User Management tab active', async () => {
@@ -101,16 +93,12 @@ test('Switch tabs: User Management to Roles & Access and back', { tag: ["@smoke"
 });
 
 test('Search filters users case-insensitively and in real time', { tag: ["@smoke","@regression","@P0","@search-filters-case-insensitive"] }, async ({ page, loginPage, userManagementPage }) => {
-  await test.step('Open — Navigate to Admin', async () => {
-    await page.goto('/');
+  await test.step('Open — Navigate to login with redirect to Admin', async () => {
+    await page.goto('/login?next=%2Fadmin');
   });
 
   await test.step('Click — Salesforce Login button', async () => {
     await loginPage.clickLoginWithSalesforce();
-  });
-
-  await test.step('Open — Navigate to Admin (QA)', async () => {
-    await page.goto('https://qa-atlas.qtsolvdev.com/admin');
   });
 
   await test.step('Assert visible — Search user input', async () => {
