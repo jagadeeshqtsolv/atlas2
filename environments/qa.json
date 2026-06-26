@@ -1,5 +1,7 @@
 {
-  "baseURL": "https://qa-atlas.qtsolvdev.com/admin",
+  "name": "qa",
+  "slug": "qa",
+  "baseURL": "https://qa-atlas.qtsolvdev.com/login?next=%2Fadmin",
   "browser": "chromium",
   "headless": true,
   "timeout": 30000,

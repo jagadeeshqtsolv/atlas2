@@ -9,8 +9,8 @@ test('Admin loads /admin: default User Management tab, tabs order, header elemen
     await loginPage.clickLoginWithSalesforce();
   });
 
-  await test.step('Open — Navigate to /admin', async () => {
-    await page.goto('/admin');
+  await test.step('Open — Navigate to Admin (QA)', async () => {
+    await page.goto('https://qa-atlas.qtsolvdev.com/admin');
   });
 
   await test.step('Assert visible — Tabs container', async () => {
@@ -75,8 +75,8 @@ test('Switch tabs: User Management to Roles & Access and back', { tag: ["@smoke"
     await loginPage.clickLoginWithSalesforce();
   });
 
-  await test.step('Open — Navigate to /admin', async () => {
-    await page.goto('/admin');
+  await test.step('Open — Navigate to Admin (QA)', async () => {
+    await page.goto('https://qa-atlas.qtsolvdev.com/admin');
   });
 
   await test.step('Assert visible — User Management tab active', async () => {
@@ -109,8 +109,8 @@ test('Search filters users case-insensitively and in real time', { tag: ["@smoke
     await loginPage.clickLoginWithSalesforce();
   });
 
-  await test.step('Open — Navigate to /admin', async () => {
-    await page.goto('/admin');
+  await test.step('Open — Navigate to Admin (QA)', async () => {
+    await page.goto('https://qa-atlas.qtsolvdev.com/admin');
   });
 
   await test.step('Assert visible — Search user input', async () => {
