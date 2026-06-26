@@ -1,0 +1,76 @@
+{
+  "id": "own-toggle-disabled-and-tooltip",
+  "testPlanId": "cdabeb02-12a3-4b84-a3c3-6cb161a15636",
+  "requirementId": "108a0cc3-6cc1-42af-9005-0ce6733eb6a9",
+  "suiteName": "Admin - User Management - Toggle Account Access with Confirmation (E2E)",
+  "case": {
+    "id": "own-toggle-disabled-and-tooltip",
+    "title": "Admin's own Account Access toggle is visible, disabled, and shows tooltip on hover",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Admin User Management",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "SSO login",
+        "locatorHint": "button:has-text(\"Salesforce Login\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for Account Access column",
+        "locatorHint": "text=Account Access"
+      },
+      {
+        "id": "s4",
+        "action": "assertVisible",
+        "targetDescription": "Verify admin's own row toggle is visible",
+        "locatorHint": "[data-testid=\"account-access-toggle-admin@example.com\"]"
+      },
+      {
+        "id": "s5",
+        "action": "assertDisabled",
+        "targetDescription": "Verify admin's own toggle is disabled",
+        "locatorHint": "[data-testid=\"account-access-toggle-admin@example.com\"]"
+      },
+      {
+        "id": "s6",
+        "action": "hover",
+        "targetDescription": "Hover over disabled toggle to show tooltip",
+        "locatorHint": "[data-testid=\"account-access-toggle-admin@example.com\"]"
+      },
+      {
+        "id": "s7",
+        "action": "assertContainsText",
+        "targetDescription": "Verify tooltip text is shown",
+        "locatorHint": "[role=\"tooltip\"], [data-testid=\"tooltip\"]",
+        "assertion": "You cannot revoke your own access."
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Attempt to click disabled toggle (should have no effect)",
+        "locatorHint": "[data-testid=\"account-access-toggle-admin@example.com\"]"
+      },
+      {
+        "id": "s9",
+        "action": "assertHidden",
+        "targetDescription": "Verify confirmation modal did not open",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

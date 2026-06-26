@@ -1,0 +1,949 @@
+{
+  "id": "cdabeb02-12a3-4b84-a3c3-6cb161a15636",
+  "requirementId": "108a0cc3-6cc1-42af-9005-0ce6733eb6a9",
+  "model": "gpt-5",
+  "createdAt": "2026-06-26T19:47:41.737Z",
+  "plan": {
+    "version": 1,
+    "suiteName": "Admin - User Management - Toggle Account Access with Confirmation (E2E)",
+    "cases": [
+      {
+        "id": "admin-table-structure-account-access-column",
+        "title": "Admin can see Account Access column and per-user toggles reflect ON/OFF states",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Navigate to Admin User Management",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s2",
+            "action": "tap",
+            "targetDescription": "Click SSO provider login button",
+            "locatorHint": "button:has-text(\"Salesforce Login\")"
+          },
+          {
+            "id": "s3",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for User Management to load",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s4",
+            "action": "assertVisible",
+            "targetDescription": "Verify Account Access column header is visible",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s5",
+            "action": "assertCountGreaterThan",
+            "targetDescription": "Verify at least one Account Access toggle exists",
+            "locatorHint": "[data-testid^=\"account-access-toggle-\"]"
+          },
+          {
+            "id": "s6",
+            "action": "assertChecked",
+            "targetDescription": "Verify known ON user's toggle is ON (teal)",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s7",
+            "action": "assertUnchecked",
+            "targetDescription": "Verify known OFF user's toggle is OFF (grey)",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "toggle-on-open-confirm-modal-and-verify-content",
+        "title": "Clicking ON toggle opens confirmation modal without changing state and shows required UI copy",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Admin User Management",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s2",
+            "action": "tap",
+            "targetDescription": "SSO login",
+            "locatorHint": "button:has-text(\"Salesforce Login\")"
+          },
+          {
+            "id": "s3",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s4",
+            "action": "scrollIntoView",
+            "targetDescription": "Scroll to ON user's toggle",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s5",
+            "action": "assertChecked",
+            "targetDescription": "Confirm toggle is currently ON",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Click ON toggle to initiate change",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s7",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for confirmation modal",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s8",
+            "action": "assertChecked",
+            "targetDescription": "Verify toggle state did not change before confirmation",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "Verify circular info/warning icon is visible",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-icon\"]"
+          },
+          {
+            "id": "s10",
+            "action": "assertText",
+            "targetDescription": "Verify modal title",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-title\"]",
+            "assertion": "Change User Account Access?"
+          },
+          {
+            "id": "s11",
+            "action": "assertContainsText",
+            "targetDescription": "Verify modal message",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-message\"]",
+            "assertion": "This action will immediately update the user's access permissions"
+          },
+          {
+            "id": "s12",
+            "action": "assertVisible",
+            "targetDescription": "Verify Cancel button is visible",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-cancel\"]"
+          },
+          {
+            "id": "s13",
+            "action": "assertVisible",
+            "targetDescription": "Verify Confirm button is visible",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-confirm\"]"
+          },
+          {
+            "id": "s14",
+            "action": "assertVisible",
+            "targetDescription": "Verify modal close (X) icon is visible",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"modal-close\"]"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "revoke-access-confirm-updates-and-persists",
+        "title": "Revoke access from ON to OFF via Confirm updates toggle immediately and persists after reload",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Admin User Management",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s2",
+            "action": "tap",
+            "targetDescription": "SSO login",
+            "locatorHint": "button:has-text(\"Salesforce Login\")"
+          },
+          {
+            "id": "s3",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s4",
+            "action": "assertChecked",
+            "targetDescription": "Verify target user is ON",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Click ON toggle",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for confirmation modal",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Confirm change",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-confirm\"]"
+          },
+          {
+            "id": "s8",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for modal to close",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s9",
+            "action": "assertUnchecked",
+            "targetDescription": "Verify toggle changed to OFF",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s10",
+            "action": "openUrl",
+            "targetDescription": "Reload Admin page to verify persistence",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s11",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s12",
+            "action": "assertUnchecked",
+            "targetDescription": "Verify toggle remains OFF after reload",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "restore-access-confirm-updates-and-persists",
+        "title": "Restore access from OFF to ON via Confirm updates toggle immediately and persists after reload",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Admin User Management",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s2",
+            "action": "tap",
+            "targetDescription": "SSO login",
+            "locatorHint": "button:has-text(\"Salesforce Login\")"
+          },
+          {
+            "id": "s3",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s4",
+            "action": "assertUnchecked",
+            "targetDescription": "Verify target user is OFF",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Click OFF toggle",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for confirmation modal",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Confirm change",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-confirm\"]"
+          },
+          {
+            "id": "s8",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for modal to close",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s9",
+            "action": "assertChecked",
+            "targetDescription": "Verify toggle changed to ON",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+          },
+          {
+            "id": "s10",
+            "action": "openUrl",
+            "targetDescription": "Reload Admin page to verify persistence",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s11",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s12",
+            "action": "assertChecked",
+            "targetDescription": "Verify toggle remains ON after reload",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "cancel-change-via-cancel-keeps-state",
+        "title": "Cancel in confirmation modal closes it and leaves toggle unchanged (no update)",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Admin User Management",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s2",
+            "action": "tap",
+            "targetDescription": "SSO login",
+            "locatorHint": "button:has-text(\"Salesforce Login\")"
+          },
+          {
+            "id": "s3",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s4",
+            "action": "assertChecked",
+            "targetDescription": "Ensure target user is currently ON",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Click ON toggle",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for confirmation modal",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Click Cancel",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-cancel\"]"
+          },
+          {
+            "id": "s8",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for modal to close",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s9",
+            "action": "assertChecked",
+            "targetDescription": "Verify toggle remains ON",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "cancel-change-via-close-keeps-state",
+        "title": "Closing modal with X leaves toggle unchanged (no update)",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Admin User Management",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s2",
+            "action": "tap",
+            "targetDescription": "SSO login",
+            "locatorHint": "button:has-text(\"Salesforce Login\")"
+          },
+          {
+            "id": "s3",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s4",
+            "action": "assertUnchecked",
+            "targetDescription": "Ensure target user is currently OFF",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Click OFF toggle",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for confirmation modal",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Close modal with X",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"modal-close\"]"
+          },
+          {
+            "id": "s8",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for modal to close",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s9",
+            "action": "assertUnchecked",
+            "targetDescription": "Verify toggle remains OFF",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "own-toggle-disabled-and-tooltip",
+        "title": "Admin's own Account Access toggle is visible, disabled, and shows tooltip on hover",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Admin User Management",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s2",
+            "action": "tap",
+            "targetDescription": "SSO login",
+            "locatorHint": "button:has-text(\"Salesforce Login\")"
+          },
+          {
+            "id": "s3",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s4",
+            "action": "assertVisible",
+            "targetDescription": "Verify admin's own row toggle is visible",
+            "locatorHint": "[data-testid=\"account-access-toggle-admin@example.com\"]"
+          },
+          {
+            "id": "s5",
+            "action": "assertDisabled",
+            "targetDescription": "Verify admin's own toggle is disabled",
+            "locatorHint": "[data-testid=\"account-access-toggle-admin@example.com\"]"
+          },
+          {
+            "id": "s6",
+            "action": "hover",
+            "targetDescription": "Hover over disabled toggle to show tooltip",
+            "locatorHint": "[data-testid=\"account-access-toggle-admin@example.com\"]"
+          },
+          {
+            "id": "s7",
+            "action": "assertContainsText",
+            "targetDescription": "Verify tooltip text is shown",
+            "locatorHint": "[role=\"tooltip\"], [data-testid=\"tooltip\"]",
+            "assertion": "You cannot revoke your own access."
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Attempt to click disabled toggle (should have no effect)",
+            "locatorHint": "[data-testid=\"account-access-toggle-admin@example.com\"]"
+          },
+          {
+            "id": "s9",
+            "action": "assertHidden",
+            "targetDescription": "Verify confirmation modal did not open",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "rapid-repeated-clicks-single-modal",
+        "title": "Rapid repeated clicks on a toggle show only one confirmation modal and do not change state pre-confirm",
+        "priority": "P2",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Admin User Management",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s2",
+            "action": "tap",
+            "targetDescription": "SSO login",
+            "locatorHint": "button:has-text(\"Salesforce Login\")"
+          },
+          {
+            "id": "s3",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s4",
+            "action": "assertChecked",
+            "targetDescription": "Ensure target user is ON",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Click toggle to open modal",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Attempt another quick click on the same toggle",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s7",
+            "action": "assertCount",
+            "targetDescription": "Verify only one confirmation modal is present",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Cancel to close modal",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-cancel\"]"
+          },
+          {
+            "id": "s9",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for modal to close",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s10",
+            "action": "assertChecked",
+            "targetDescription": "Verify toggle state remained ON",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "backend-update-failure-keeps-state-and-shows-error",
+        "title": "If backend update fails, toggle remains in original state and error is shown",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Admin with simulated failure flag (test env)",
+            "value": "https://qa-atlas.qtsolvdev.com/admin?simulateToggleFailure=1"
+          },
+          {
+            "id": "s2",
+            "action": "tap",
+            "targetDescription": "SSO login",
+            "locatorHint": "button:has-text(\"Salesforce Login\")"
+          },
+          {
+            "id": "s3",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s4",
+            "action": "assertChecked",
+            "targetDescription": "Ensure target user is ON before attempting change",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Click ON toggle",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for confirmation modal",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Confirm change",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-confirm\"]"
+          },
+          {
+            "id": "s8",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for modal to close",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s9",
+            "action": "assertChecked",
+            "targetDescription": "Verify toggle remains ON due to backend failure",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+          },
+          {
+            "id": "s10",
+            "action": "assertVisible",
+            "targetDescription": "Verify error message/banner is displayed to admin",
+            "locatorHint": "[data-testid=\"toast-error\"], [data-testid=\"alert-error\"], .toast-error"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "revoke-access-terminates-active-sessions-multi-tabs",
+        "title": "Revoking access terminates active portal sessions within 60 seconds; subsequent requests get Access Denied",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Simulate portal user login (test helper)",
+            "value": "https://qa-atlas.qtsolvdev.com/sso/login-as?email=user.sessions@example.com&role=portal"
+          },
+          {
+            "id": "s2",
+            "action": "openUrl",
+            "targetDescription": "Open Portal as logged-in user (Tab A)",
+            "value": "https://qa-atlas.qtsolvdev.com/portal"
+          },
+          {
+            "id": "s3",
+            "action": "waitForVisible",
+            "targetDescription": "Verify portal dashboard is accessible (Tab A)",
+            "locatorHint": "text=Dashboard"
+          },
+          {
+            "id": "s4",
+            "action": "switchToNewTab",
+            "targetDescription": "Open new tab (Tab B)"
+          },
+          {
+            "id": "s5",
+            "action": "openUrl",
+            "targetDescription": "Open Portal again (Tab B) - second active session",
+            "value": "https://qa-atlas.qtsolvdev.com/portal"
+          },
+          {
+            "id": "s6",
+            "action": "waitForVisible",
+            "targetDescription": "Verify portal dashboard is accessible (Tab B)",
+            "locatorHint": "text=Dashboard"
+          },
+          {
+            "id": "s7",
+            "action": "switchToNewTab",
+            "targetDescription": "Open new tab (Tab C) for Admin actions"
+          },
+          {
+            "id": "s8",
+            "action": "openUrl",
+            "targetDescription": "Simulate admin login (test helper) in Tab C",
+            "value": "https://qa-atlas.qtsolvdev.com/sso/login-as?email=admin@example.com&role=admin"
+          },
+          {
+            "id": "s9",
+            "action": "openUrl",
+            "targetDescription": "Open Admin User Management (Tab C)",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s10",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column (Tab C)",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s11",
+            "action": "assertChecked",
+            "targetDescription": "Ensure sessions user's access is currently ON",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.sessions@example.com\"]"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Click ON toggle for sessions user",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.sessions@example.com\"]"
+          },
+          {
+            "id": "s13",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for confirmation modal (Tab C)",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s14",
+            "action": "tap",
+            "targetDescription": "Confirm to revoke access",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-confirm\"]"
+          },
+          {
+            "id": "s15",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for modal to close (Tab C)",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s16",
+            "action": "assertUnchecked",
+            "targetDescription": "Verify sessions user's toggle is now OFF",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.sessions@example.com\"]"
+          },
+          {
+            "id": "s17",
+            "action": "wait",
+            "targetDescription": "Wait up to 65s for backend to terminate active sessions"
+          },
+          {
+            "id": "s18",
+            "action": "closeTab",
+            "targetDescription": "Close Admin tab (Tab C) to return to Portal Tab B"
+          },
+          {
+            "id": "s19",
+            "action": "openUrl",
+            "targetDescription": "Attempt to access Portal (Tab B) after revocation",
+            "value": "https://qa-atlas.qtsolvdev.com/portal"
+          },
+          {
+            "id": "s20",
+            "action": "assertContainsText",
+            "targetDescription": "Verify access is denied (Tab B)",
+            "locatorHint": "body",
+            "assertion": "Access Denied"
+          },
+          {
+            "id": "s21",
+            "action": "closeTab",
+            "targetDescription": "Close Tab B to return to Portal Tab A"
+          },
+          {
+            "id": "s22",
+            "action": "openUrl",
+            "targetDescription": "Attempt to access Portal (Tab A) after revocation",
+            "value": "https://qa-atlas.qtsolvdev.com/portal"
+          },
+          {
+            "id": "s23",
+            "action": "assertContainsText",
+            "targetDescription": "Verify access is denied (Tab A)",
+            "locatorHint": "body",
+            "assertion": "Access Denied"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      },
+      {
+        "id": "restore-access-permits-portal-login-again",
+        "title": "Restoring access allows user to log in and access portal again",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "switchToNewTab",
+            "targetDescription": "Open new tab for Admin"
+          },
+          {
+            "id": "s2",
+            "action": "openUrl",
+            "targetDescription": "Simulate admin login (test helper)",
+            "value": "https://qa-atlas.qtsolvdev.com/sso/login-as?email=admin@example.com&role=admin"
+          },
+          {
+            "id": "s3",
+            "action": "openUrl",
+            "targetDescription": "Open Admin User Management",
+            "value": "https://qa-atlas.qtsolvdev.com/admin"
+          },
+          {
+            "id": "s4",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for Account Access column",
+            "locatorHint": "text=Account Access"
+          },
+          {
+            "id": "s5",
+            "action": "assertUnchecked",
+            "targetDescription": "Verify restore-target user is currently OFF",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Click OFF toggle to restore",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+          },
+          {
+            "id": "s7",
+            "action": "waitForVisible",
+            "targetDescription": "Wait for confirmation modal",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Confirm to restore access",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-confirm\"]"
+          },
+          {
+            "id": "s9",
+            "action": "waitForHidden",
+            "targetDescription": "Wait for modal to close",
+            "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+          },
+          {
+            "id": "s10",
+            "action": "assertChecked",
+            "targetDescription": "Verify toggle is ON after restore",
+            "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+          },
+          {
+            "id": "s11",
+            "action": "switchToNewTab",
+            "targetDescription": "Open new tab for Portal login"
+          },
+          {
+            "id": "s12",
+            "action": "openUrl",
+            "targetDescription": "Simulate portal user login (test helper)",
+            "value": "https://qa-atlas.qtsolvdev.com/sso/login-as?email=user.off@example.com&role=portal"
+          },
+          {
+            "id": "s13",
+            "action": "openUrl",
+            "targetDescription": "Open Portal",
+            "value": "https://qa-atlas.qtsolvdev.com/portal"
+          },
+          {
+            "id": "s14",
+            "action": "waitForVisible",
+            "targetDescription": "Verify portal dashboard accessible after restore",
+            "locatorHint": "text=Dashboard"
+          }
+        ],
+        "tags": [
+          "@e2e",
+          "@regression"
+        ]
+      }
+    ]
+  }
+}

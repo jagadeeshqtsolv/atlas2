@@ -1,0 +1,103 @@
+{
+  "id": "restore-access-permits-portal-login-again",
+  "testPlanId": "cdabeb02-12a3-4b84-a3c3-6cb161a15636",
+  "requirementId": "108a0cc3-6cc1-42af-9005-0ce6733eb6a9",
+  "suiteName": "Admin - User Management - Toggle Account Access with Confirmation (E2E)",
+  "case": {
+    "id": "restore-access-permits-portal-login-again",
+    "title": "Restoring access allows user to log in and access portal again",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "switchToNewTab",
+        "targetDescription": "Open new tab for Admin"
+      },
+      {
+        "id": "s2",
+        "action": "openUrl",
+        "targetDescription": "Simulate admin login (test helper)",
+        "value": "https://qa-atlas.qtsolvdev.com/sso/login-as?email=admin@example.com&role=admin"
+      },
+      {
+        "id": "s3",
+        "action": "openUrl",
+        "targetDescription": "Open Admin User Management",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s4",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for Account Access column",
+        "locatorHint": "text=Account Access"
+      },
+      {
+        "id": "s5",
+        "action": "assertUnchecked",
+        "targetDescription": "Verify restore-target user is currently OFF",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+      },
+      {
+        "id": "s6",
+        "action": "tap",
+        "targetDescription": "Click OFF toggle to restore",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+      },
+      {
+        "id": "s7",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for confirmation modal",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Confirm to restore access",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-confirm\"]"
+      },
+      {
+        "id": "s9",
+        "action": "waitForHidden",
+        "targetDescription": "Wait for modal to close",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+      },
+      {
+        "id": "s10",
+        "action": "assertChecked",
+        "targetDescription": "Verify toggle is ON after restore",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+      },
+      {
+        "id": "s11",
+        "action": "switchToNewTab",
+        "targetDescription": "Open new tab for Portal login"
+      },
+      {
+        "id": "s12",
+        "action": "openUrl",
+        "targetDescription": "Simulate portal user login (test helper)",
+        "value": "https://qa-atlas.qtsolvdev.com/sso/login-as?email=user.off@example.com&role=portal"
+      },
+      {
+        "id": "s13",
+        "action": "openUrl",
+        "targetDescription": "Open Portal",
+        "value": "https://qa-atlas.qtsolvdev.com/portal"
+      },
+      {
+        "id": "s14",
+        "action": "waitForVisible",
+        "targetDescription": "Verify portal dashboard accessible after restore",
+        "locatorHint": "text=Dashboard"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

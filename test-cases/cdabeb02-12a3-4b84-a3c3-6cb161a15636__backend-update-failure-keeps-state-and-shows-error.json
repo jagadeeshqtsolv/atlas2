@@ -1,0 +1,81 @@
+{
+  "id": "backend-update-failure-keeps-state-and-shows-error",
+  "testPlanId": "cdabeb02-12a3-4b84-a3c3-6cb161a15636",
+  "requirementId": "108a0cc3-6cc1-42af-9005-0ce6733eb6a9",
+  "suiteName": "Admin - User Management - Toggle Account Access with Confirmation (E2E)",
+  "case": {
+    "id": "backend-update-failure-keeps-state-and-shows-error",
+    "title": "If backend update fails, toggle remains in original state and error is shown",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Admin with simulated failure flag (test env)",
+        "value": "https://qa-atlas.qtsolvdev.com/admin?simulateToggleFailure=1"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "SSO login",
+        "locatorHint": "button:has-text(\"Salesforce Login\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for Account Access column",
+        "locatorHint": "text=Account Access"
+      },
+      {
+        "id": "s4",
+        "action": "assertChecked",
+        "targetDescription": "Ensure target user is ON before attempting change",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Click ON toggle",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      },
+      {
+        "id": "s6",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for confirmation modal",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Confirm change",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-confirm\"]"
+      },
+      {
+        "id": "s8",
+        "action": "waitForHidden",
+        "targetDescription": "Wait for modal to close",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+      },
+      {
+        "id": "s9",
+        "action": "assertChecked",
+        "targetDescription": "Verify toggle remains ON due to backend failure",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      },
+      {
+        "id": "s10",
+        "action": "assertVisible",
+        "targetDescription": "Verify error message/banner is displayed to admin",
+        "locatorHint": "[data-testid=\"toast-error\"], [data-testid=\"alert-error\"], .toast-error"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

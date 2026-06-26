@@ -1,0 +1,81 @@
+{
+  "id": "rapid-repeated-clicks-single-modal",
+  "testPlanId": "cdabeb02-12a3-4b84-a3c3-6cb161a15636",
+  "requirementId": "108a0cc3-6cc1-42af-9005-0ce6733eb6a9",
+  "suiteName": "Admin - User Management - Toggle Account Access with Confirmation (E2E)",
+  "case": {
+    "id": "rapid-repeated-clicks-single-modal",
+    "title": "Rapid repeated clicks on a toggle show only one confirmation modal and do not change state pre-confirm",
+    "priority": "P2",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Admin User Management",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "SSO login",
+        "locatorHint": "button:has-text(\"Salesforce Login\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for Account Access column",
+        "locatorHint": "text=Account Access"
+      },
+      {
+        "id": "s4",
+        "action": "assertChecked",
+        "targetDescription": "Ensure target user is ON",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Click toggle to open modal",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      },
+      {
+        "id": "s6",
+        "action": "tap",
+        "targetDescription": "Attempt another quick click on the same toggle",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      },
+      {
+        "id": "s7",
+        "action": "assertCount",
+        "targetDescription": "Verify only one confirmation modal is present",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Cancel to close modal",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-cancel\"]"
+      },
+      {
+        "id": "s9",
+        "action": "waitForHidden",
+        "targetDescription": "Wait for modal to close",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+      },
+      {
+        "id": "s10",
+        "action": "assertChecked",
+        "targetDescription": "Verify toggle state remained ON",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

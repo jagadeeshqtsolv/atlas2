@@ -1,0 +1,63 @@
+{
+  "id": "admin-table-structure-account-access-column",
+  "testPlanId": "cdabeb02-12a3-4b84-a3c3-6cb161a15636",
+  "requirementId": "108a0cc3-6cc1-42af-9005-0ce6733eb6a9",
+  "suiteName": "Admin - User Management - Toggle Account Access with Confirmation (E2E)",
+  "case": {
+    "id": "admin-table-structure-account-access-column",
+    "title": "Admin can see Account Access column and per-user toggles reflect ON/OFF states",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to Admin User Management",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "Click SSO provider login button",
+        "locatorHint": "button:has-text(\"Salesforce Login\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for User Management to load",
+        "locatorHint": "text=Account Access"
+      },
+      {
+        "id": "s4",
+        "action": "assertVisible",
+        "targetDescription": "Verify Account Access column header is visible",
+        "locatorHint": "text=Account Access"
+      },
+      {
+        "id": "s5",
+        "action": "assertCountGreaterThan",
+        "targetDescription": "Verify at least one Account Access toggle exists",
+        "locatorHint": "[data-testid^=\"account-access-toggle-\"]"
+      },
+      {
+        "id": "s6",
+        "action": "assertChecked",
+        "targetDescription": "Verify known ON user's toggle is ON (teal)",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      },
+      {
+        "id": "s7",
+        "action": "assertUnchecked",
+        "targetDescription": "Verify known OFF user's toggle is OFF (grey)",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.off@example.com\"]"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

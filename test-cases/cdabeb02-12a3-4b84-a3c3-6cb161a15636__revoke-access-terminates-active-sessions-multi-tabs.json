@@ -1,0 +1,156 @@
+{
+  "id": "revoke-access-terminates-active-sessions-multi-tabs",
+  "testPlanId": "cdabeb02-12a3-4b84-a3c3-6cb161a15636",
+  "requirementId": "108a0cc3-6cc1-42af-9005-0ce6733eb6a9",
+  "suiteName": "Admin - User Management - Toggle Account Access with Confirmation (E2E)",
+  "case": {
+    "id": "revoke-access-terminates-active-sessions-multi-tabs",
+    "title": "Revoking access terminates active portal sessions within 60 seconds; subsequent requests get Access Denied",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Simulate portal user login (test helper)",
+        "value": "https://qa-atlas.qtsolvdev.com/sso/login-as?email=user.sessions@example.com&role=portal"
+      },
+      {
+        "id": "s2",
+        "action": "openUrl",
+        "targetDescription": "Open Portal as logged-in user (Tab A)",
+        "value": "https://qa-atlas.qtsolvdev.com/portal"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "Verify portal dashboard is accessible (Tab A)",
+        "locatorHint": "text=Dashboard"
+      },
+      {
+        "id": "s4",
+        "action": "switchToNewTab",
+        "targetDescription": "Open new tab (Tab B)"
+      },
+      {
+        "id": "s5",
+        "action": "openUrl",
+        "targetDescription": "Open Portal again (Tab B) - second active session",
+        "value": "https://qa-atlas.qtsolvdev.com/portal"
+      },
+      {
+        "id": "s6",
+        "action": "waitForVisible",
+        "targetDescription": "Verify portal dashboard is accessible (Tab B)",
+        "locatorHint": "text=Dashboard"
+      },
+      {
+        "id": "s7",
+        "action": "switchToNewTab",
+        "targetDescription": "Open new tab (Tab C) for Admin actions"
+      },
+      {
+        "id": "s8",
+        "action": "openUrl",
+        "targetDescription": "Simulate admin login (test helper) in Tab C",
+        "value": "https://qa-atlas.qtsolvdev.com/sso/login-as?email=admin@example.com&role=admin"
+      },
+      {
+        "id": "s9",
+        "action": "openUrl",
+        "targetDescription": "Open Admin User Management (Tab C)",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s10",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for Account Access column (Tab C)",
+        "locatorHint": "text=Account Access"
+      },
+      {
+        "id": "s11",
+        "action": "assertChecked",
+        "targetDescription": "Ensure sessions user's access is currently ON",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.sessions@example.com\"]"
+      },
+      {
+        "id": "s12",
+        "action": "tap",
+        "targetDescription": "Click ON toggle for sessions user",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.sessions@example.com\"]"
+      },
+      {
+        "id": "s13",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for confirmation modal (Tab C)",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+      },
+      {
+        "id": "s14",
+        "action": "tap",
+        "targetDescription": "Confirm to revoke access",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-confirm\"]"
+      },
+      {
+        "id": "s15",
+        "action": "waitForHidden",
+        "targetDescription": "Wait for modal to close (Tab C)",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+      },
+      {
+        "id": "s16",
+        "action": "assertUnchecked",
+        "targetDescription": "Verify sessions user's toggle is now OFF",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.sessions@example.com\"]"
+      },
+      {
+        "id": "s17",
+        "action": "wait",
+        "targetDescription": "Wait up to 65s for backend to terminate active sessions"
+      },
+      {
+        "id": "s18",
+        "action": "closeTab",
+        "targetDescription": "Close Admin tab (Tab C) to return to Portal Tab B"
+      },
+      {
+        "id": "s19",
+        "action": "openUrl",
+        "targetDescription": "Attempt to access Portal (Tab B) after revocation",
+        "value": "https://qa-atlas.qtsolvdev.com/portal"
+      },
+      {
+        "id": "s20",
+        "action": "assertContainsText",
+        "targetDescription": "Verify access is denied (Tab B)",
+        "locatorHint": "body",
+        "assertion": "Access Denied"
+      },
+      {
+        "id": "s21",
+        "action": "closeTab",
+        "targetDescription": "Close Tab B to return to Portal Tab A"
+      },
+      {
+        "id": "s22",
+        "action": "openUrl",
+        "targetDescription": "Attempt to access Portal (Tab A) after revocation",
+        "value": "https://qa-atlas.qtsolvdev.com/portal"
+      },
+      {
+        "id": "s23",
+        "action": "assertContainsText",
+        "targetDescription": "Verify access is denied (Tab A)",
+        "locatorHint": "body",
+        "assertion": "Access Denied"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}

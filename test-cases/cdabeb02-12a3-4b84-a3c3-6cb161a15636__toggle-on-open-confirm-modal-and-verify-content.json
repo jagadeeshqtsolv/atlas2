@@ -1,0 +1,107 @@
+{
+  "id": "toggle-on-open-confirm-modal-and-verify-content",
+  "testPlanId": "cdabeb02-12a3-4b84-a3c3-6cb161a15636",
+  "requirementId": "108a0cc3-6cc1-42af-9005-0ce6733eb6a9",
+  "suiteName": "Admin - User Management - Toggle Account Access with Confirmation (E2E)",
+  "case": {
+    "id": "toggle-on-open-confirm-modal-and-verify-content",
+    "title": "Clicking ON toggle opens confirmation modal without changing state and shows required UI copy",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Admin User Management",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "SSO login",
+        "locatorHint": "button:has-text(\"Salesforce Login\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for Account Access column",
+        "locatorHint": "text=Account Access"
+      },
+      {
+        "id": "s4",
+        "action": "scrollIntoView",
+        "targetDescription": "Scroll to ON user's toggle",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      },
+      {
+        "id": "s5",
+        "action": "assertChecked",
+        "targetDescription": "Confirm toggle is currently ON",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      },
+      {
+        "id": "s6",
+        "action": "tap",
+        "targetDescription": "Click ON toggle to initiate change",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      },
+      {
+        "id": "s7",
+        "action": "waitForVisible",
+        "targetDescription": "Wait for confirmation modal",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"]"
+      },
+      {
+        "id": "s8",
+        "action": "assertChecked",
+        "targetDescription": "Verify toggle state did not change before confirmation",
+        "locatorHint": "[data-testid=\"account-access-toggle-user.on@example.com\"]"
+      },
+      {
+        "id": "s9",
+        "action": "assertVisible",
+        "targetDescription": "Verify circular info/warning icon is visible",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-icon\"]"
+      },
+      {
+        "id": "s10",
+        "action": "assertText",
+        "targetDescription": "Verify modal title",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-title\"]",
+        "assertion": "Change User Account Access?"
+      },
+      {
+        "id": "s11",
+        "action": "assertContainsText",
+        "targetDescription": "Verify modal message",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-message\"]",
+        "assertion": "This action will immediately update the user's access permissions"
+      },
+      {
+        "id": "s12",
+        "action": "assertVisible",
+        "targetDescription": "Verify Cancel button is visible",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-cancel\"]"
+      },
+      {
+        "id": "s13",
+        "action": "assertVisible",
+        "targetDescription": "Verify Confirm button is visible",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"confirm-confirm\"]"
+      },
+      {
+        "id": "s14",
+        "action": "assertVisible",
+        "targetDescription": "Verify modal close (X) icon is visible",
+        "locatorHint": "[data-testid=\"account-access-confirm-modal\"] [data-testid=\"modal-close\"]"
+      }
+    ],
+    "tags": [
+      "@e2e",
+      "@regression"
+    ]
+  }
+}
