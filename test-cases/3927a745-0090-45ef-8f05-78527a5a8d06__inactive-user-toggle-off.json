@@ -1,0 +1,46 @@
+{
+  "id": "inactive-user-toggle-off",
+  "testPlanId": "3927a745-0090-45ef-8f05-78527a5a8d06",
+  "requirementId": "6229f24a-b1f7-4e69-bd00-47e4e1fe6fb2",
+  "suiteName": "Admin — User Management: SMOKE",
+  "case": {
+    "id": "inactive-user-toggle-off",
+    "title": "Inactive users show Account Access toggle OFF",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to Admin",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "Salesforce Login button",
+        "locatorHint": "button:has-text(\"Salesforce\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "User table visible",
+        "locatorHint": "table",
+        "value": "10000"
+      },
+      {
+        "id": "s4",
+        "action": "assertUnchecked",
+        "targetDescription": "Inactive user's Account Access toggle is OFF",
+        "locatorHint": "table tbody tr:has(td:nth-child(3):has-text(\"Inactive\")) input.access-toggle"
+      }
+    ],
+    "tags": [
+      "@smoke",
+      "@regression"
+    ]
+  }
+}

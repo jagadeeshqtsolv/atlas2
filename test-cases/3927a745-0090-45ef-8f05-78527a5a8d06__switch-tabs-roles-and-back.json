@@ -1,0 +1,66 @@
+{
+  "id": "switch-tabs-roles-and-back",
+  "testPlanId": "3927a745-0090-45ef-8f05-78527a5a8d06",
+  "requirementId": "6229f24a-b1f7-4e69-bd00-47e4e1fe6fb2",
+  "suiteName": "Admin — User Management: SMOKE",
+  "case": {
+    "id": "switch-tabs-roles-and-back",
+    "title": "Switch to Roles & Access and back to User Management",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to Admin",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "Salesforce Login button",
+        "locatorHint": "button:has-text(\"Salesforce\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "User Management tab active",
+        "locatorHint": "[role=\"tab\"][aria-selected=\"true\"]:has-text(\"User Management\")",
+        "value": "10000"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Roles & Access tab",
+        "locatorHint": "[role=\"tab\"]:has-text(\"Roles & Access\")"
+      },
+      {
+        "id": "s5",
+        "action": "waitForVisible",
+        "targetDescription": "Roles & Access view visible",
+        "locatorHint": "main:has-text(\"Roles & Access\")",
+        "value": "5000"
+      },
+      {
+        "id": "s6",
+        "action": "tap",
+        "targetDescription": "User Management tab",
+        "locatorHint": "[role=\"tab\"]:has-text(\"User Management\")"
+      },
+      {
+        "id": "s7",
+        "action": "waitForVisible",
+        "targetDescription": "User table visible again",
+        "locatorHint": "table",
+        "value": "5000"
+      }
+    ],
+    "tags": [
+      "@smoke",
+      "@regression"
+    ]
+  }
+}

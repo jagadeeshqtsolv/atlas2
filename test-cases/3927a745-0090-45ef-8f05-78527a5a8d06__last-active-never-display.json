@@ -1,0 +1,46 @@
+{
+  "id": "last-active-never-display",
+  "testPlanId": "3927a745-0090-45ef-8f05-78527a5a8d06",
+  "requirementId": "6229f24a-b1f7-4e69-bd00-47e4e1fe6fb2",
+  "suiteName": "Admin — User Management: SMOKE",
+  "case": {
+    "id": "last-active-never-display",
+    "title": "User who never logged in shows 'Never' in Last active cell",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to Admin",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "Salesforce Login button",
+        "locatorHint": "button:has-text(\"Salesforce\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "User table visible",
+        "locatorHint": "table",
+        "value": "10000"
+      },
+      {
+        "id": "s4",
+        "action": "assertVisible",
+        "targetDescription": "A row shows 'Never' in Last active column",
+        "locatorHint": "table tbody tr td:nth-child(4):has-text(\"Never\")"
+      }
+    ],
+    "tags": [
+      "@smoke",
+      "@regression"
+    ]
+  }
+}

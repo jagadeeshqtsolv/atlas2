@@ -1,0 +1,52 @@
+{
+  "id": "reenable-access-from-off",
+  "testPlanId": "3927a745-0090-45ef-8f05-78527a5a8d06",
+  "requirementId": "6229f24a-b1f7-4e69-bd00-47e4e1fe6fb2",
+  "suiteName": "Admin — User Management: SMOKE",
+  "case": {
+    "id": "reenable-access-from-off",
+    "title": "Re-enable access: clicking OFF toggle turns it ON immediately (no confirmation)",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to Admin",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "Salesforce Login button",
+        "locatorHint": "button:has-text(\"Salesforce\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "Any OFF account access toggle (enabled)",
+        "locatorHint": "table tbody tr input.access-toggle:not(:checked):not([disabled])",
+        "value": "10000"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Click an OFF toggle to enable access",
+        "locatorHint": "table tbody tr input.access-toggle:not(:checked):not([disabled])"
+      },
+      {
+        "id": "s5",
+        "action": "assertVisible",
+        "targetDescription": "An ON toggle is present (immediate enable)",
+        "locatorHint": "table tbody tr input.access-toggle:checked"
+      }
+    ],
+    "tags": [
+      "@smoke",
+      "@regression"
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "id": "search-filters-case-insensitive",
+  "testPlanId": "3927a745-0090-45ef-8f05-78527a5a8d06",
+  "requirementId": "6229f24a-b1f7-4e69-bd00-47e4e1fe6fb2",
+  "suiteName": "Admin — User Management: SMOKE",
+  "case": {
+    "id": "search-filters-case-insensitive",
+    "title": "Search filters users in real time (case-insensitive) and N Users label remains displayed",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to Admin",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "Salesforce Login button",
+        "locatorHint": "button:has-text(\"Salesforce\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "Search user input",
+        "locatorHint": "input[placeholder=\"Search user\"]",
+        "value": "10000"
+      },
+      {
+        "id": "s4",
+        "action": "screenshot",
+        "targetDescription": "Capture N Users label before search",
+        "locatorHint": "[data-testid=\"user-count\"]",
+        "value": "users-count-before"
+      },
+      {
+        "id": "s5",
+        "action": "fill",
+        "targetDescription": "Type search query (uppercase to verify case-insensitive)",
+        "locatorHint": "input[placeholder=\"Search user\"]",
+        "value": "TESTUSERINVITE1"
+      },
+      {
+        "id": "s6",
+        "action": "wait",
+        "targetDescription": "Wait for real-time filtering",
+        "value": "500"
+      },
+      {
+        "id": "s7",
+        "action": "assertCount",
+        "targetDescription": "All visible rows match query (no non-matching rows)",
+        "locatorHint": "table tbody tr:not(:has-text(\"testuserinvite1\"))"
+      },
+      {
+        "id": "s8",
+        "action": "screenshot",
+        "targetDescription": "Capture N Users label after search (should not change)",
+        "locatorHint": "[data-testid=\"user-count\"]",
+        "value": "users-count-after"
+      }
+    ],
+    "tags": [
+      "@smoke",
+      "@regression"
+    ]
+  }
+}

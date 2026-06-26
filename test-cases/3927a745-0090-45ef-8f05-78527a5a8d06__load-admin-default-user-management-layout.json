@@ -1,0 +1,120 @@
+{
+  "id": "load-admin-default-user-management-layout",
+  "testPlanId": "3927a745-0090-45ef-8f05-78527a5a8d06",
+  "requirementId": "6229f24a-b1f7-4e69-bd00-47e4e1fe6fb2",
+  "suiteName": "Admin — User Management: SMOKE",
+  "case": {
+    "id": "load-admin-default-user-management-layout",
+    "title": "Admin loads /admin: default User Management tab, header controls, and table columns render correctly",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to Admin",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "Salesforce Login button",
+        "locatorHint": "button:has-text(\"Salesforce\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "Tabs container",
+        "locatorHint": "[role=\"tablist\"]",
+        "value": "10000"
+      },
+      {
+        "id": "s4",
+        "action": "assertVisible",
+        "targetDescription": "User Management tab is active by default",
+        "locatorHint": "[role=\"tab\"][aria-selected=\"true\"]:has-text(\"User Management\")"
+      },
+      {
+        "id": "s5",
+        "action": "assertText",
+        "targetDescription": "Tab 1 is 'User Management'",
+        "locatorHint": "[role=\"tablist\"] [role=\"tab\"]:nth-child(1)",
+        "assertion": "User Management"
+      },
+      {
+        "id": "s6",
+        "action": "assertText",
+        "targetDescription": "Tab 2 is 'Roles & Access'",
+        "locatorHint": "[role=\"tablist\"] [role=\"tab\"]:nth-child(2)",
+        "assertion": "Roles & Access"
+      },
+      {
+        "id": "s7",
+        "action": "assertText",
+        "targetDescription": "Tab 3 is 'Audit Log'",
+        "locatorHint": "[role=\"tablist\"] [role=\"tab\"]:nth-child(3)",
+        "assertion": "Audit Log"
+      },
+      {
+        "id": "s8",
+        "action": "assertVisible",
+        "targetDescription": "\"N Users\" count label",
+        "locatorHint": "[data-testid=\"user-count\"]"
+      },
+      {
+        "id": "s9",
+        "action": "assertVisible",
+        "targetDescription": "Search user input",
+        "locatorHint": "input[placeholder=\"Search user\"]"
+      },
+      {
+        "id": "s10",
+        "action": "assertVisible",
+        "targetDescription": "Invite user button",
+        "locatorHint": "button:has-text(\"Invite user\")"
+      },
+      {
+        "id": "s11",
+        "action": "assertText",
+        "targetDescription": "Column 1 header 'User information'",
+        "locatorHint": "table thead th:nth-child(1)",
+        "assertion": "User information"
+      },
+      {
+        "id": "s12",
+        "action": "assertText",
+        "targetDescription": "Column 2 header 'Role'",
+        "locatorHint": "table thead th:nth-child(2)",
+        "assertion": "Role"
+      },
+      {
+        "id": "s13",
+        "action": "assertText",
+        "targetDescription": "Column 3 header 'Status'",
+        "locatorHint": "table thead th:nth-child(3)",
+        "assertion": "Status"
+      },
+      {
+        "id": "s14",
+        "action": "assertText",
+        "targetDescription": "Column 4 header 'Last active'",
+        "locatorHint": "table thead th:nth-child(4)",
+        "assertion": "Last active"
+      },
+      {
+        "id": "s15",
+        "action": "assertText",
+        "targetDescription": "Column 5 header 'Account Access'",
+        "locatorHint": "table thead th:nth-child(5)",
+        "assertion": "Account Access"
+      }
+    ],
+    "tags": [
+      "@smoke",
+      "@regression"
+    ]
+  }
+}

@@ -1,1 +1,35 @@
-{}
+{
+  "searchFiltersUsersCaseInsensitivelyAndInRealTime": {
+    "typeMixedCaseQueryIntoSearchUser": "JoHn"
+  },
+  "searchWithNoResultsShowsEmptyStateAndKeepsHeaderVisible": {
+    "typeNonMatchingQuery": "zzznomatch"
+  },
+  "revokeAccessConfirmationDialogAndToggleTurnsOffAliceDoe": {
+    "searchAliceDoe": "Alice Doe"
+  },
+  "cancelRevocationToggleRemainsOnBobSmith": {
+    "searchBobSmith": "Bob Smith"
+  },
+  "reEnableAccessFromOffImmediateWithoutConfirmationCarolJones": {
+    "searchCarolJones": "Carol Jones"
+  },
+  "paginationResetsToPage1WhenSearchQueryChangesOnPage2": {
+    "typeOneCharacterIntoSearchUser": "a"
+  },
+  "userInformationCellEmailOnlyAccountShowsEmailAsPrimaryAndAvatarInitialsFallback": {
+    "searchEmailOnlyUser": "no-name@example.com"
+  },
+  "nUsersCountLabelRemainsUnchangedDuringFiltering50UsersFixture": {
+    "typeFilterQuery": "x"
+  },
+  "searchFiltersUsersInRealTimeCaseInsensitiveAndNUsersLabelRemainsDisplayed": {
+    "typeSearchQueryUppercaseToVerifyCaseInsensitive": "TESTUSERINVITE1"
+  },
+  "searchWithNoMatchesShowsEmptyStateMessageAndKeepsTableHeaderVisible": {
+    "typeAQueryWithNoMatches": "zzznomatch"
+  },
+  "searchResetsPaginationToPage1WhenQueryChanges": {
+    "typeAOneCharacterSearchToTriggerFilter": "a"
+  }
+}
