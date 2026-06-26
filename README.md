@@ -1,4 +1,4 @@
-# UKG Atlas 2 — Playwright web framework
+# UKG Atlas — Playwright web framework
 
 Generated and maintained by Autonix
 
