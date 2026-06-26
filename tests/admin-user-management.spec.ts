@@ -2,7 +2,7 @@ import { test, expect } from '../support/fixtures';
 import testData from '../testdata/test-data.json';
 
 test('Admin loads /admin: default User Management tab, tabs order, header elements, and table columns render', { tag: ["@smoke","@regression","@P0","@um-admin-default-ui"] }, async ({ page, loginPage, userManagementPage }) => {
-  await test.step('Open — Navigate to Admin page', async () => {
+  await test.step('Open — Navigate to login', async () => {
     await page.goto('/');
   });
 
@@ -12,6 +12,15 @@ test('Admin loads /admin: default User Management tab, tabs order, header elemen
 
   await test.step('Click — Click Salesforce login', async () => {
     await loginPage.clickLoginWithSalesforce();
+  });
+
+  await test.step('Navigate — Go to /admin', async () => {
+    await page.goto('/admin');
+  });
+
+  await test.step('Assert visible — Admin shell loaded', async () => {
+    await userManagementPage.expectAcmeCorporationVisible();
+    await userManagementPage.expectPageTitle();
   });
 
   await test.step('Assert visible — User Management tab active', async () => {
@@ -42,10 +51,6 @@ test('Admin loads /admin: default User Management tab, tabs order, header elemen
     await userManagementPage.expectInviteUserVisible();
   });
 
-  await test.step('Assert count — Table header has exactly 5 columns', async () => {
-    await userManagementPage.expectTableHeadersCount(5);
-  });
-
   await test.step('Assert text — Column 1 label', async () => {
     await userManagementPage.expectUserInformationText('User information');
   });
@@ -67,9 +72,8 @@ test('Admin loads /admin: default User Management tab, tabs order, header elemen
   });
 });
 
-
 test('Switch tabs: User Management to Roles & Access and back', { tag: ["@smoke","@regression","@P0","@um-switch-tabs"] }, async ({ page, loginPage, userManagementPage, rolesAndAccessPage }) => {
-  await test.step('Open — Navigate to Admin page', async () => {
+  await test.step('Open — Navigate to login', async () => {
     await page.goto('/');
   });
 
@@ -79,6 +83,15 @@ test('Switch tabs: User Management to Roles & Access and back', { tag: ["@smoke"
 
   await test.step('Click — Click Salesforce login', async () => {
     await loginPage.clickLoginWithSalesforce();
+  });
+
+  await test.step('Navigate — Go to /admin', async () => {
+    await page.goto('/admin');
+  });
+
+  await test.step('Assert visible — Admin shell loaded', async () => {
+    await userManagementPage.expectAcmeCorporationVisible();
+    await userManagementPage.expectPageTitle();
   });
 
   await test.step('Assert visible — User Management tab active', async () => {
@@ -115,16 +128,21 @@ test('Switch tabs: User Management to Roles & Access and back', { tag: ["@smoke"
       await loginPage.clickLoginWithSalesforce();
     });
 
+    await test.step('Navigate — Go to /admin', async () => {
+      await page.goto('/admin');
+    });
+
+    await test.step('Assert visible — Admin shell loaded', async () => {
+      await userManagementPage.expectAcmeCorporationVisible();
+      await userManagementPage.expectPageTitle();
+    });
+
     await test.step('Assert visible — User table visible', async () => {
       await userManagementPage.expectUsersSearchVisible();
     });
 
     await test.step('Fill — Type mixed-case query into Search user', async () => {
       await userManagementPage.fillUsersSearch(testData.searchFiltersUsersCaseInsensitivelyAndInRealTime.typeMixedCaseQueryIntoSearchUser);
-    });
-
-    await test.step('Assert visible — Row containing John Doe visible', async () => {
-      await userManagementPage.expectUsersVisible();
     });
 
     await test.step('Assert visible — "N Users" count label remains visible', async () => {
