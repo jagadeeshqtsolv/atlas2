@@ -1,0 +1,67 @@
+{
+  "id": "search-no-results-message-and-header",
+  "testPlanId": "3927a745-0090-45ef-8f05-78527a5a8d06",
+  "requirementId": "6229f24a-b1f7-4e69-bd00-47e4e1fe6fb2",
+  "suiteName": "Admin — User Management: SMOKE",
+  "case": {
+    "id": "search-no-results-message-and-header",
+    "title": "Search with no matches shows empty-state message and keeps table header visible",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to Admin",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "Salesforce Login button",
+        "locatorHint": "button:has-text(\"Salesforce\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "Search user input",
+        "locatorHint": "input[placeholder=\"Search user\"]",
+        "value": "10000"
+      },
+      {
+        "id": "s4",
+        "action": "fill",
+        "targetDescription": "Type a query with no matches",
+        "locatorHint": "input[placeholder=\"Search user\"]",
+        "value": "zzznomatch"
+      },
+      {
+        "id": "s5",
+        "action": "wait",
+        "targetDescription": "Wait for filter to apply",
+        "value": "500"
+      },
+      {
+        "id": "s6",
+        "action": "assertContainsText",
+        "targetDescription": "No results message is shown in table body",
+        "locatorHint": "table tbody",
+        "assertion": "No users found for"
+      },
+      {
+        "id": "s7",
+        "action": "assertText",
+        "targetDescription": "Table header row remains visible - first column",
+        "locatorHint": "table thead th:nth-child(1)",
+        "assertion": "User information"
+      }
+    ],
+    "tags": [
+      "@smoke",
+      "@regression"
+    ]
+  }
+}

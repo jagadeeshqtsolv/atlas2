@@ -1,0 +1,65 @@
+{
+  "id": "pagination-next-prev-and-20-rows",
+  "testPlanId": "3927a745-0090-45ef-8f05-78527a5a8d06",
+  "requirementId": "6229f24a-b1f7-4e69-bd00-47e4e1fe6fb2",
+  "suiteName": "Admin — User Management: SMOKE",
+  "case": {
+    "id": "pagination-next-prev-and-20-rows",
+    "title": "Pagination appears when users > 20: shows 20 rows, Next/Previous navigate pages",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Navigate to Admin",
+        "value": "https://qa-atlas.qtsolvdev.com/admin"
+      },
+      {
+        "id": "s2",
+        "action": "tap",
+        "targetDescription": "Salesforce Login button",
+        "locatorHint": "button:has-text(\"Salesforce\")"
+      },
+      {
+        "id": "s3",
+        "action": "waitForVisible",
+        "targetDescription": "Pagination controls visible",
+        "locatorHint": "nav[aria-label=\"Pagination\"]",
+        "value": "10000"
+      },
+      {
+        "id": "s4",
+        "action": "assertCount",
+        "targetDescription": "Page 1 shows 20 rows",
+        "locatorHint": "table tbody tr"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Click Next page",
+        "locatorHint": "nav[aria-label=\"Pagination\"] button:has-text(\"Next\"), nav[aria-label=\"Pagination\"] a:has-text(\"Next\")"
+      },
+      {
+        "id": "s6",
+        "action": "waitForVisible",
+        "targetDescription": "Previous button becomes active",
+        "locatorHint": "nav[aria-label=\"Pagination\"] button:has-text(\"Previous\"), nav[aria-label=\"Pagination\"] a:has-text(\"Previous\")",
+        "value": "5000"
+      },
+      {
+        "id": "s7",
+        "action": "assertEnabled",
+        "targetDescription": "Previous control is enabled on page > 1",
+        "locatorHint": "nav[aria-label=\"Pagination\"] button:has-text(\"Previous\")"
+      }
+    ],
+    "tags": [
+      "@smoke",
+      "@regression"
+    ]
+  }
+}
